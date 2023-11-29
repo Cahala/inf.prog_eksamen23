@@ -9,7 +9,7 @@
 </head>
 <body>
     <article>
-        <input type="text" id="calculation" />
+        <input type="text" id="calculation">
         <div id="keyboard">
             <div id="numbers">
                 <button id="number-1" value="1" onClick="display('1')">1</button>
@@ -30,7 +30,7 @@
                 <button id="control-plus" value="+" onClick="display('+')">+</button>
                 <button id="control-minus" value="-" onClick="display('-')">-</button>
                 <button id="control-multiply" value="*" onClick="display('*')">*</button>
-                <button id="control-multiply" value="/" onClick="display('/')">/</button>
+                <button id="control-divide" value="/" onClick="display('/')">/</button>
                 <button id="control-equal" value="=" onClick="solve()">=</button>
             </div>
         </div>
@@ -43,21 +43,36 @@
     </article>
 
     <script>
-        function displey(val) {
-            document.getElementByID("calculatin").value += val
+        function display(val) { //1. endret fra "displey"
+            document.getElementById("calculation").value += val //2. endret fra "calculatin" og 3.endret fra "getElementByID"
             return val
         }
 
         function solve() {
-            let calculation = document.getElementById("calculation").value()
+            let calculation = document.getElementById("calculation").value //4. tatt vekk () etter ".value"
             let result = eval(calculation)
-            document.getElementById("calculation").value = results
+            document.getElementById("calculation").value = result //5. endret fra "results"
             return result
         }
+        //Funksjonen solve() starter med å henter ut verdier av HTML-elementet med id calculation, ved document.getElementById("calculation").value. 
+        //Ettersom egenskapen ".value" er satt, gjør at man får tak i de faktiske (i dette tilfellet) tallene og tegene som er blitt skrevet inn av brukeren. 
+        //Det blir verdien til variabelen "let calculation". Så settes verdien av variabelen "let result" til det som blir resultatet av eval()-funksjonen. 
+        //Eval() bruker verdiene til "let calculation" og evaluerer det som er skrevet inn, som i dette tilfelle er en utrening. Resultatet av eval() blir 
+        //verdi til variabelen "let result". Ved at "document.getElementById("calculation").value = result" er satt gjør at verdiene hentes på nytt, 
+        //men oppdateres til å bli verdien til "result". Ved at det er satt "return result" gjør at funksjonen returnerer resultatet/utreningen og 
+        //funksjonen slutter å kjøre. 
+        
+        //Eksempel på utførelse av funksjon: brukeren trykker på tallet 2, tegnet + og tallet 3, disse veriden hentes ut med
+        //let calculation = document.getElementById("calculation").value og setter verdien til let calculation til "2 + 3". Eval() regner det ut 
+        //til å være 5. Så kjøres verdien av HTML-elementet igjen, men ny verdi settes til 5, ettersom det er blitt verdien 
+        //til variabelen "result". Med "return result" returneres 5 tilbake til solve()-funksjonen, som viser ut "5" når bruker trykker på =.
+
 
         function clearScreen() {
             document.getElementById("calculation").value = ""
         }
+
+
     </script>
 </body>
 </html>
