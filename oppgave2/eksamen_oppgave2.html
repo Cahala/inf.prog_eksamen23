@@ -22,10 +22,8 @@
         </nav>
         <canvas id="drawArea"></canvas>
     </main>
-
     <script>
-        //INITIATE CANVAS
-        //Canvas width: 600, Canvas height: 500
+        
         const canvas = document.getElementById("drawArea")
         canvas.width = 600
         canvas.height = 500
@@ -33,32 +31,79 @@
 
         //TODO: Storage of multiple element objects (Grade C and above)
         const elements = [
-            {type: "square", x: 23, y: 220},
-            {type: "circle", x: 381, y: 444}
+           // {type: "square", x: 23, y: 220},
+           // {type: "circle", x: 381, y: 444}
         ]
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        
-
+        function addElement(elementType) {
+        if (elementType === "square") {
+            elements.push({ type: "square", x: 23, y: 220 });
+        }
+        if (elementType === "circle") {
+            elements.push({ type: "circle", x: 381, y: 444 });
+        }
+    }
         //TODO: Function to remove random element:
         
-
         //TODO: EventListeners to track user input:
+        document.getElementById("sbutton").addEventListener("click", () => addElement("square"))
+        document.getElementById("cbutton").addEventListener("click", () => addElement("circle"))
+        
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "s") {
+                addElement("square")
+            } 
+            if (event.key === "c") {
+                addElement("circle")
+            }
+        })
 
+      //TODO: Count the element types and total and print to interface
+      function updateCounts() {
+        //console.log("Oppdaterer teller")
+        let squareCount = 0
+        let circleCount = 0
+        let totalCount = 0
+       
+        for(const element of elements) {
+            if (element.type === "square") {
+                squareCount++
+            }
+            if (element.type === "circle") {
+                circleCount++
+            }
+        }
 
-        //TODO: Count the element types and total and print to interface
-
+        document.getElementById("squareCount").innerHTML = squareCount
+        document.getElementById("circleCount").innerHTML = circleCount
+        document.getElementById("totalCount").innerHTML = totalCount
+    }
+    updateCounts()
         
         //Function to draw on canvas:
         function renderDrawings() {
-            //Clear the rectangle
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        //Clear the rectangle
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-            //TODO: Draw the elements on canvas:
-
+        //TODO: Draw the elements on canvas:
+            elements.forEach(element => {
+                if (element.type === "square") {
+                    ctx.fillStyle = "blue"
+                    ctx.fillRect(23, 220, 8, 8)
+                } 
+                if (element.type === "circle") {
+                    ctx.beginPath()
+                    ctx.arc(381, 444, 13, 0, 2 * Math.PI)
+                    ctx.fillStyle = "gold"
+                    ctx.fill()
+                    ctx.stroke()
+                }
+            })
 
             //Testprint:
             console.log("Currently drawing frames...")
+
             //Use requestAnimationFrame to re-run renderDrawings-function
             requestAnimationFrame(renderDrawings)
         }
