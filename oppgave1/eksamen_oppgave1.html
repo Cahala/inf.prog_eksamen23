@@ -43,6 +43,9 @@
     </article>
 
     <script>
+
+        let memory = []
+
         function display(val) { //1. endret fra "displey"
             document.getElementById("calculation").value += val //2. endret fra "calculatin" og 3.endret fra "getElementByID"
             return val
@@ -70,11 +73,20 @@
         //til å være 5. Så kjøres verdien av HTML-elementet igjen, men ny verdi settes til 5, ettersom det er blitt verdien 
         //til variabelen "result". Med "return result" returneres 5 tilbake til solve()-funksjonen, som viser ut "5" når bruker trykker på =.
 
-
         function clearScreen() {
             document.getElementById("calculation").value = ""
         }
 
+        function updateMemoryCount() {
+            document.getElementById("memory-bank").innerHTML = memory.length
+        } //Kilde 1 og se beskrivelse i mappedokumentet
+
+        function addMemory() {
+            let currentCalculatin = document.getElementById("calculation").value
+            memory.push(currentCalculatin)
+            updateMemoryCount()
+            //console.log(memory)
+        } //Kilde 1 og se beskrivelse i mappedokumentet
 
     </script>
 </body>

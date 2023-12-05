@@ -30,57 +30,50 @@
         const ctx = canvas.getContext("2d")
 
         //TODO: Storage of multiple element objects (Grade C and above)
-        const elements = [
+        const elements = []
            // {type: "square", x: 23, y: 220},
            // {type: "circle", x: 381, y: 444}
-        ]
+           //Kommentert ut fordi symbolene konstant var fremvist på skjermen når de var "aktive", ettersom jeg hadde angitt de i funksjonen under forsto jeg at det måtte gjøres.
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        function addElement(elementType) {
-        if (elementType === "square") {
-            elements.push({ type: "square", x: 23, y: 220 });
+        function addElement(elements) {
+        if (elements === "square") {
+            elements.push({type: "square", x: 23, y: 220 });
         }
-        if (elementType === "circle") {
-            elements.push({ type: "circle", x: 381, y: 444 });
+        if (elements === "circle") {
+            elements.push({type: "circle", x: 381, y: 444 });
         }
+        //Kilde 1 og beskrivelse i mappedokumentet
+        //console.log(elements)
     }
         //TODO: Function to remove random element:
         
         //TODO: EventListeners to track user input:
-        document.getElementById("sbutton").addEventListener("click", () => addElement("square"))
-        document.getElementById("cbutton").addEventListener("click", () => addElement("circle"))
-        
         document.addEventListener("keydown", function(event) {
-            if (event.key === "s") {
-                addElement("square")
+            if (event.key === "s" || event.key === "S") {
+                elements.push({type: "square", x: 23, y: 220 }); ////Se mappedokumentet, MAX
             } 
-            if (event.key === "c") {
-                addElement("circle")
+            if (event.key === "c" || event.key === "C") {
+                elements.push({type: "circle", x: 381, y: 444 });//Se mappedokumentet, MAX
             }
         })
 
-      //TODO: Count the element types and total and print to interface
-      function updateCounts() {
-        //console.log("Oppdaterer teller")
-        let squareCount = 0
-        let circleCount = 0
-        let totalCount = 0
-       
-        for(const element of elements) {
-            if (element.type === "square") {
-                squareCount++
-            }
-            if (element.type === "circle") {
-                circleCount++
-            }
-        }
-
-        document.getElementById("squareCount").innerHTML = squareCount
-        document.getElementById("circleCount").innerHTML = circleCount
-        document.getElementById("totalCount").innerHTML = totalCount
-    }
-    updateCounts()
+        document.getElementById("sbutton").addEventListener("click", function(event) {
+            elements.push({type: "square", x: 23, y: 220 });//Se mappedokumentet, MAX
         
+        })
+
+        document.getElementById("cbutton").addEventListener("click", function(event) {
+            elements.push({type: "circle", x: 381, y: 444 });// se mappedokumentet, MAX
+        })
+
+      //TODO: Count the element types and total and print to interface
+
+        const squareCount = document.getElementById("squareCount")
+        const circleCount = document.getElementById("circleCount")
+        const totalCount = document.getElementById("totalCount")
+
+
         //Function to draw on canvas:
         function renderDrawings() {
         //Clear the rectangle
@@ -90,16 +83,21 @@
             elements.forEach(element => {
                 if (element.type === "square") {
                     ctx.fillStyle = "blue"
-                    ctx.fillRect(23, 220, 8, 8)
+                    ctx.fillRect(element.x, element.y, 8, 8)
+                    squareCount.innerHTML = elements.filter(element => element.type === 'square').length;
+                    //Kilde 1, se mappedokumentet
                 } 
                 if (element.type === "circle") {
                     ctx.beginPath()
-                    ctx.arc(381, 444, 13, 0, 2 * Math.PI)
+                    ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI)
                     ctx.fillStyle = "gold"
                     ctx.fill()
                     ctx.stroke()
+                    circleCount.innerHTML = elements.filter(element => element.type === 'circle').length;
+                    //Kilde 1, se mappedokumentet
                 }
-            })
+                totalCount.innerHTML = elements.length;
+            }) //Kilde 2, se mappedokumentet
 
             //Testprint:
             console.log("Currently drawing frames...")
