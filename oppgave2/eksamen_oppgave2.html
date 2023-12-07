@@ -23,7 +23,6 @@
         <canvas id="drawArea"></canvas>
     </main>
     <script>
-        
         const canvas = document.getElementById("drawArea")
         canvas.width = 600
         canvas.height = 500
@@ -33,42 +32,86 @@
         const elements = []
            // {type: "square", x: 23, y: 220},
            // {type: "circle", x: 381, y: 444}
-           //Kommentert ut fordi symbolene konstant var fremvist på skjermen når de var "aktive", ettersom jeg hadde angitt de i funksjonen under forsto jeg at det måtte gjøres.
+           //Kommentert ut fordi symbolene var fremvist konstant på skjermen når koden var "aktive", 
+           //ettersom jeg hadde angitt de i function addElement(type) forsto jeg at det måtte gjøres.
+
+        function getRandomPosition() {
+            const x = Math.floor(Math.random() * canvas.width)
+            const y = Math.floor(Math.random() * canvas.height)
+            return { x, y };
+            //Kilde 1 (ChatGPT)
+        }
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
-        function addElement(elements) {
-        if (elements === "square") {
-            elements.push({type: "square", x: 23, y: 220 });
+        function addElement(type) {
+            const position = getRandomPosition()
+        if (type === "square") {
+            elements.push({type: "square", x: position.x, y: position.y})
+            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            // elements.push({type: "square", x: 23, y: 220 })
         }
-        if (elements === "circle") {
-            elements.push({type: "circle", x: 381, y: 444 });
+        if (type === "circle") {
+            elements.push({type: "circle", x: position.x, y: position.y})
+            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //elements.push({type: "circle", x: 381, y: 444 })
         }
-        //Kilde 1 og beskrivelse i mappedokumentet
         //console.log(elements)
-    }
+        }//Kilde 1 (ChatGPT) og beskrivelse i mappedokumentet
+
         //TODO: Function to remove random element:
+        function removeElement () {
+            if (elements.length > 0) 
+            {
+                const randomIndex = Math.floor(Math.random() * elements.length)
+                elements.splice(randomIndex, 1)
+
+                renderDrawings()
+            }
+            
+        }
+
         
         //TODO: EventListeners to track user input:
         document.addEventListener("keydown", function(event) {
             if (event.key === "s" || event.key === "S") {
-                elements.push({type: "square", x: 23, y: 220 }); ////Se mappedokumentet, MAX
+                addElement("square")
+                //Se beskrivelse i mappedokumentet
+                //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+                //elements.push({type: "square", x: 23, y: 220 })
             } 
             if (event.key === "c" || event.key === "C") {
-                elements.push({type: "circle", x: 381, y: 444 });//Se mappedokumentet, MAX
+                addElement("circle")
+                //Se beskrivelse i mappedokumentet
+                //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+                //elements.push({type: "circle", x: 381, y: 444 })
+            }
+            if (event.key === "r" || event.key === "R") {
+                removeElement("cirele" || "square")
             }
         })
 
         document.getElementById("sbutton").addEventListener("click", function(event) {
-            elements.push({type: "square", x: 23, y: 220 });//Se mappedokumentet, MAX
-        
+            addElement("square")
+            //Se beskrivelse i mappedokumentet
+            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //elements.push({type: "square", x: 23, y: 220 });
         })
 
         document.getElementById("cbutton").addEventListener("click", function(event) {
-            elements.push({type: "circle", x: 381, y: 444 });// se mappedokumentet, MAX
+            addElement("circle")
+            //Se beskrivelse i mappedokumentet
+            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+           //elements.push({type: "circle", x: 381, y: 444 })
+        })
+
+        document.getElementById("rbutton").addEventListener("click", function(event) {
+            removeElement("circle" || "square")
+            //Se beskrivelse i mappedokumentet
+            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+           //elements.push({type: "circle", x: 381, y: 444 })
         })
 
       //TODO: Count the element types and total and print to interface
-
         const squareCount = document.getElementById("squareCount")
         const circleCount = document.getElementById("circleCount")
         const totalCount = document.getElementById("totalCount")
@@ -84,21 +127,21 @@
                 if (element.type === "square") {
                     ctx.fillStyle = "blue"
                     ctx.fillRect(element.x, element.y, 8, 8)
-                    squareCount.innerHTML = elements.filter(element => element.type === 'square').length;
-                    //Kilde 1, se mappedokumentet
                 } 
+                
                 if (element.type === "circle") {
                     ctx.beginPath()
                     ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI)
                     ctx.fillStyle = "gold"
                     ctx.fill()
-                    ctx.stroke()
-                    circleCount.innerHTML = elements.filter(element => element.type === 'circle').length;
-                    //Kilde 1, se mappedokumentet
+                    ctx.stroke() 
                 }
-                totalCount.innerHTML = elements.length;
-            }) //Kilde 2, se mappedokumentet
-
+            }) //Kilde 2 (tidligere koding, workshop) og 5 (LMS), se mappedokumentet
+            circleCount.innerHTML = elements.filter(element => element.type === 'circle').length;
+            squareCount.innerHTML = elements.filter(element => element.type === 'square').length;
+            totalCount.innerHTML = elements.length;
+            //Kilde 2 (tidligere koding, workshop) og 5 (LMS), se mappedokumentet
+            
             //Testprint:
             console.log("Currently drawing frames...")
 
