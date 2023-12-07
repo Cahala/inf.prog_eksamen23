@@ -37,8 +37,9 @@
         <div id="memory">
             <p>Memory (<span id="memory-bank">0</span>)</p>
             <button id="memory-add" onClick="addMemory()">Add</button>
+            <!--Linjen nedenfor var satt inn for løsning av oppgave til C-kravet-->
             <!--<button id="memory-browseback" onClick="fetchFromMemory()">Fetch from memory</button>-->
-            <button id="memory-browseback" onClick="previous()" disabled>Previous</button>
+            <button id="memory-browseback" onClick="previous()" disabled>Previous</button> <!--Lagt til onClick for at den skal virke som knapp-->
             <button id="memory-browseforward" disabled>Next</button>
 
         </div>
@@ -46,19 +47,19 @@
 
     <script>
 
-        
+        //variabel for minnet til kalkulatoren
         let memory = []
 
+        //variabel med startverdi
         let memoryIndex = - 1 
 
         //Retting av 5 feil:
-        function display(val) { //1. endret fra "displey"
-            document.getElementById("calculation").value += val //2. endret fra "calculatin" og 3.endret fra "getElementByID"
+        function display(val) { //Feil 1: endret fra "displey"
+            document.getElementById("calculation").value += val //Feil 2: endret fra "calculatin" | Feil 3: endret fra "getElementByID"
             return val
         }
 
-        //D-KRAVET
-        //funksjon for å hente ut siste lagrede mattestykke
+        //funksjon nedenfor som henter ut siste lagrede mattestykke er skrevet til D-kravet, men kommentert ut fordi funksjonen måtte endres til C-kravet
         //function fetchFromMemory() {
         //    if (memory.length > 0 ) {
         //    let lastCalculation = memory [memory.length - 1]
@@ -66,70 +67,79 @@
         //   }
         //} //Kilde 1 (ChatGPT)
        
+        //funksjonen for å gå tilbake til forrige utregning
         function previous() {
+            //Sjekk om memoryIndex er innenfor grensen av memory
             if (memoryIndex <= memory.length && memoryIndex >= 0) 
             {
+                //Reduser memoryIndex med 1 for å gå bakover i utregningene
                 memoryIndex --
+
+                // Henter utregning fra memory basert på den oppdaterte memoryIndex
                 let calculation = memory[memoryIndex]
+
+                //oppdaterer verdien
                 document.getElementById("calculation").value = calculation
-            }
+            }//Kilde 8 (https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/bruke-verdier-fra-skjemafelter)
+
+            //sjekker om memoryIndex er 0
             if (memoryIndex === 0) 
             {
+                //deaktiver previous knappen fordi det ikke er flere lagrede minner
                 document.getElementById("memory-browseback").disabled = true
             }
         } //Kilde 1 (ChatGPT)
 
         //forsettelse for retting av 5 feil:
         function solve() {
-            let calculation = document.getElementById("calculation").value //4. tatt vekk () etter ".value", ettersom det er en egenskap og ikke en funksjon.
+            let calculation = document.getElementById("calculation").value //Feil 4: tatt vekk () etter ".value", ettersom det er en egenskap og ikke en funksjon.
             let result = eval(calculation)
-            document.getElementById("calculation").value = result //5. endret fra "results"
+            document.getElementById("calculation").value = result //Feil 5: endret fra "results"
             return result
         }
         //Beskrivelse av funksjonen solve():
-        //den starter med å henter ut verdier av HTML-elementet med id calculation, ved document.getElementById("calculation").value. 
-        //Ettersom egenskapen ".value" er satt, gjør at man får tak i de faktiske verdiene av tall og tegn som er blitt skrevet inn. Det blir verdien 
-        //til variabelen "let calculation". Verdien av variabelen "let result" er det som blir resultatet av eval()-funksjonen. Eval() bruker verdiene 
-        //til "let calculation" og evaluerer det som er skrevet inn. Resultatet av eval() blir verdi til variabelen "let result". Ved at 
-        //"document.getElementById("calculation").value = result" er satt gjør at verdiene hentes på nytt, men oppdateres til å bli verdien til "result". 
-        //Ved at det er satt "return result" gjør at funksjonen returnerer verdien av "result" og funksjonen slutter å kjøre. Return har ikke dirkete 
-        //innvirkning på fremvisningen av resultatet på kalkulatoren, men den gir data tilbake til koden, som er tilgjenglig for bruk senere i kodingen.
+        //Starter med å sette verdi til variabelen "let calculation" ved å hente ut verdier av HTML-elementet med id calculation, ved document.getElementById("calculation").value. 
+        //Ettersom egenskapen ".value" er satt, gjør at man får tak i de faktiske verdiene av tall og tegn som er blitt skrevet inn. Verdien av variabelen "let result" er det som 
+        //blir resultatet av eval()-funksjonen. Eval() bruker verdiene til "let calculation" og evaluerer det som er skrevet inn. Resultatet av eval() blir verdi til variabelen 
+        //"let result". Ved at "document.getElementById("calculation").value = result" er satt gjør at verdiene hentes på nytt, men oppdateres til å bli verdien til "result". 
+        //Ved at det er satt "return result" gjør at funksjonen returnerer verdien av "result" og funksjonen slutter å kjøre. Return egenskapen har ikke dirkete innvirkning på 
+        //fremvisningen av resultatet på kalkulatoren, men den gir data tilbake til koden, som er tilgjenglig for senere bruk i kodingen.
         
-        //Praktisk eksempel: brukeren trykker på tallet 2, tegnet + og tallet 3, disse veriden hentes ut med 
-        //let calculation = document.getElementById("calculation").value og setter verdien til let calculation til "2 + 3". Eval() regner det ut 
-        //til å være 5. Så kjøres verdien av HTML-elementet igjen, men ny verdi settes til 5, ettersom det er blitt verdien til variabelen "result". 
-        //Med "return result" returneres 5 tilbake til solve()-funksjonen, som viser ut "5" når bruker trykker på =.
+        //Praktisk eksempel: brukeren trykker på tallet 2, tegnet + og tallet 3, disse veriden hentes ut med let calculation = document.getElementById("calculation").value og 
+        //setter verdien til let calculation til "2 + 3". Eval() regner det ut til å være 5. Så kjøres verdien av HTML-elementet igjen, men ny verdi settes til 5, ettersom det 
+        //er blitt verdien til variabelen "result". Med "return result" returneres 5 tilbake til funksjonen, som viser ut "5" når bruker trykker på = (som er solve).
 
         function clearScreen() {
             document.getElementById("calculation").value = ""
         }
 
-        //funksjon som oppdaterer antall lagrede mattestykker
+        //funksjon som oppdater med antall lagrede mattestykker
         function updateMemoryCount() {
             document.getElementById("memory-bank").innerHTML = memory.length
         } //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer ) + les beskrivelse i mappedokumentet
+
 
         //funksjon for å legge mattestykke til lagring via add-knappen
         function addMemory() {
             let currentCalculatin = document.getElementById("calculation").value
             memory.push(currentCalculatin)
-            //console.log(memory)
             //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer ) + les beskrivelse i mappedokumentet
+            
+            //For å sjekke at det som lagres i memory skrives ut i konsollen.
+            console.log(memory)
+            
 
-            //linjen med kode under er lagt til for å utføre B-kravet i den opprinnelig kode for D-kravet
+            //linjen med kode under er lagt til for å utføre B-kravet i den opprinnelig kode som ble skrevet for D-kravet
             memoryIndex = memory.length
 
+            //kaller funksjonen for å oppdatere antall lagrede mattestykker
             updateMemoryCount()
-
-            //linjen med kode under er lagt til for å utføre B-kravet i den opprinnelig kode for D-kravet
-            //Oppdaterer memoryIndex til den første element i minnet
-            memoryIndex = 0
             
             //Gjør at previous-knappen deaktiverer når det ikke er flere mattestykker
             document.getElementById("memory-browseback").disabled = memory.length < 0
             
-            //kaller funksjoen clearScreen for at kalkulatoren skal starte ren.
-            clearScreen()
+            //Kaller funksjoen clearScreen for at kalkulatoren skal starte ren
+            clearScreen() 
             //Kilde 1 (ChatGPT)
         } 
     </script>

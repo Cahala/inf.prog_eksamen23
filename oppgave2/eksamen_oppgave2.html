@@ -32,84 +32,74 @@
         const elements = []
            // {type: "square", x: 23, y: 220},
            // {type: "circle", x: 381, y: 444}
-           //Kommentert ut fordi symbolene var fremvist konstant på skjermen når koden var "aktive", 
-           //ettersom jeg hadde angitt de i function addElement(type) forsto jeg at det måtte gjøres.
+           //De to linjene ovenfor er blitt kommentert ut fordi når de var aktive var symbolene fremvist konstant i canvas.
 
+        //funksjon som skal brukes for å gi elementene tilfeldig plassering
         function getRandomPosition() {
             const x = Math.floor(Math.random() * canvas.width)
             const y = Math.floor(Math.random() * canvas.height)
             return { x, y };
-            //Kilde 1 (ChatGPT)
+            //Kilde 1 (ChatGPT) og 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi)
         }
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
         function addElement(type) {
+            //verdien til variabelen blir å kalle på funksjonen for å gi de tilfeldig plassering
             const position = getRandomPosition()
-        if (type === "square") {
+            if (type === "square") {
             elements.push({type: "square", x: position.x, y: position.y})
-            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //Koden under er kommentert ut for å gjøre C-kravet, tilfeldig plassering
             // elements.push({type: "square", x: 23, y: 220 })
-        }
-        if (type === "circle") {
-            elements.push({type: "circle", x: position.x, y: position.y})
-            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
-            //elements.push({type: "circle", x: 381, y: 444 })
-        }
-        //console.log(elements)
-        }//Kilde 1 (ChatGPT) og beskrivelse i mappedokumentet
-
-        //TODO: Function to remove random element:
-        function removeElement () {
-            if (elements.length > 0) 
-            {
-                const randomIndex = Math.floor(Math.random() * elements.length)
-                elements.splice(randomIndex, 1)
-
-                renderDrawings()
             }
-            
-        }
+            if (type === "circle") {
+            elements.push({type: "circle", x: position.x, y: position.y})
+            //Koden under er kommentert ut for å gjøre C-kravet, tilfeldig plassering
+            //elements.push({type: "circle", x: 381, y: 444 })
+            }
+            //sjekket om elementene ble skrevet ut i konsollen
+            //console.log(elements)
+        }//Kilde 1 (ChatGPT) og medstudent (se beskrivelse i mappedokumentet)
 
-        
+
         //TODO: EventListeners to track user input:
+        //sjekker tastetrykk for både liten og stor bokstav, og utfører angitt handling ut i fra hvilken tast som er trykket
         document.addEventListener("keydown", function(event) {
             if (event.key === "s" || event.key === "S") {
                 addElement("square")
-                //Se beskrivelse i mappedokumentet
                 //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
                 //elements.push({type: "square", x: 23, y: 220 })
             } 
             if (event.key === "c" || event.key === "C") {
                 addElement("circle")
-                //Se beskrivelse i mappedokumentet
                 //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
                 //elements.push({type: "circle", x: 381, y: 444 })
             }
             if (event.key === "r" || event.key === "R") {
-                removeElement("cirele" || "square")
+                removeElement("circle" || "square")
             }
-        })
+        }) //Kilde 7 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/styre-bevegelse) og medstudent (se beskrivelse i mappedokumentet)
 
+
+        //sjekker museklikk og utfører angitt handling ut i fra hvilken tast som er trykket
         document.getElementById("sbutton").addEventListener("click", function(event) {
             addElement("square")
-            //Se beskrivelse i mappedokumentet
-            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //Koden under er kommentert ut for å gjøre C-kravet, tilfeldig plassering
             //elements.push({type: "square", x: 23, y: 220 });
-        })
+        })//Kilde 8 (https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/bruke-verdier-fra-skjemafelter)
 
+        //sjekker museklikk og utfører angitt handling ut i fra hvilken tast som er trykket
         document.getElementById("cbutton").addEventListener("click", function(event) {
             addElement("circle")
-            //Se beskrivelse i mappedokumentet
-            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //Koden under er kommentert ut for å gjøre C-kravet, tilfeldig plassering
            //elements.push({type: "circle", x: 381, y: 444 })
-        })
+        })//Kilde 8 (https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/bruke-verdier-fra-skjemafelter)
 
+        //sjekker museklikk og utfører angitt handling ut i fra hvilken tast som er trykket
         document.getElementById("rbutton").addEventListener("click", function(event) {
             removeElement("circle" || "square")
-            //Se beskrivelse i mappedokumentet
-            //Koden under er kommentert ut for å gjøre C-kravet med tilfeldig plassering
+            //Koden under er kommentert ut for å gjøre C-kravet, tilfeldig plassering
            //elements.push({type: "circle", x: 381, y: 444 })
-        })
+        }) //Kilde 8 (https://lms.webtricks.blog/kurs/innforing-i-programmering/8-brukerinput/bruke-verdier-fra-skjemafelter)
 
       //TODO: Count the element types and total and print to interface
         const squareCount = document.getElementById("squareCount")
@@ -119,16 +109,18 @@
 
         //Function to draw on canvas:
         function renderDrawings() {
-        //Clear the rectangle
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //Clear the rectangle
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        //TODO: Draw the elements on canvas:
+            //TODO: Draw the elements on canvas:            
             elements.forEach(element => {
+                //verdier for å tegne opp firkant på tilfeldig i canvas. Farge og størrelse er satt etter oppgaveteksten
                 if (element.type === "square") {
                     ctx.fillStyle = "blue"
                     ctx.fillRect(element.x, element.y, 8, 8)
                 } 
                 
+                //verdier for å tegne opp sirkel på tilfeldig i canvas. Farge og radius er satt etter oppgaveteksten
                 if (element.type === "circle") {
                     ctx.beginPath()
                     ctx.arc(element.x, element.y, 13, 0, 2 * Math.PI)
@@ -136,11 +128,12 @@
                     ctx.fill()
                     ctx.stroke() 
                 }
-            }) //Kilde 2 (tidligere koding, workshop) og 5 (LMS), se mappedokumentet
+            }) //Kilde 2 (tidligere koding, workshop), 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi) og medstudent (se beskrivelse i mappedokumentet)
+
             circleCount.innerHTML = elements.filter(element => element.type === 'circle').length;
             squareCount.innerHTML = elements.filter(element => element.type === 'square').length;
             totalCount.innerHTML = elements.length;
-            //Kilde 2 (tidligere koding, workshop) og 5 (LMS), se mappedokumentet
+            //Kilde 2 (tidligere koding, workshop) og 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi)
             
             //Testprint:
             console.log("Currently drawing frames...")
@@ -150,6 +143,21 @@
         }
         //Start drawing
         renderDrawings()
+
+        //TODO: Function to remove random element:
+        function removeElement () {
+            if (elements.length > 0) 
+            {
+                //Generer en tilfeldig indeks innenfor området av antall elementer i arrayen
+                const randomIndex = Math.floor(Math.random() * elements.length)
+                //for å fjerne ett element basert på den tilfeldige indeksen
+                elements.splice(randomIndex, 1)
+                //Kilde 6 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer)
+
+                //Kaller funksjonen for å oppdatere tegning i canvas
+                renderDrawings()
+            } 
+        }
     </script>
 </body>
 </html>
