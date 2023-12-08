@@ -101,17 +101,10 @@
             showStaff += 
             document.getElementById("staffList").innerHTML = showStaff
             //Kilde 4 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/map-og-filter))
+
             //Skrev ut til konsollen for å se om den hentet riktig verdier
             //console.log(showStaff)
-
-            //for å lage ansattkort i ansattlisten spesfikt for allerede definert ansatt
-            //let memberCard = document.createElement("article")
-               // memberCard.classList.add("membercard")
-               // memberCard.innerHTML = `<h3>${person.lastname}, ${person.firstname}</h3> <p class="metainfo"> <img src="posicon.png" alt="position: "> ${person.position} <img src="depicon.png" alt="department: "> ${person.department} </p><p><a href="mailto:${person.email}"><img src="mailicon.png"> Send mail to ${person.firstname}</a></p>`
-                //koden nedenfor er kommentert ut for å løse C-kravet med å sortere på etternavn, ønsket da å ha etternavnet først i templet-literal-strengen.
-                //memberCard.innerHTML = `<h3>${person.firstname},${person.lastname},</h3> <p class="metainfo"> <img src="posicon.png" alt="position: "> ${person.position} <img src="depicon.png" alt="department: "> ${person.department} </p><p><a href="mailto:${person.email}"><img src="mailicon.png"> Send mail to ${person.firstname}</a></p>`
-               // document.getElementById("staffList").appendChild(memberCard)
-        }) //Kilde 1 (ChatGPT) og 4 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/map-og-filter)
+        })//Kilde 1 (ChatGPT)
 
         //funksjon som gjør at ansattkortene sorteres alfabetisk fra A-Å ut i fra etternavn
         function sortStaffList() {
@@ -120,28 +113,36 @@
                 if (a.lastname > b.lastname) return 1
                 return 0
             })
-        } //Kilde 1 (ChatGPT)
+        } //Kilde 1 (ChatGPT) og 11 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer)
 
+        //funksjon for å lage ansattkort i ansattlisten spesfikt for allerede definert ansatt
         function viewStaff(){
             let showStaff = ""
+            //løkke som går gjennom hvert element i "staffList" arrayen
             staffList.forEach(person => {
+                //oppretter et nytt HTML-element "article" for hvert ansattkort
                 let memberCard =document.createElement("article")
+                //legger til CSS-klassen "membercard" til det opprettede elementet
                 memberCard.classList.add("membercard")
+                //setter innholdet i ansattkortet ved hjelp av "innerHTML"
                 memberCard.innerHTML = 
                 `<h3>${person.lastname}, ${person.firstname}</h3> <p class="metainfo"> 
                 <img src="posicon.png" alt="position: "> ${person.position} 
                 <img src="depicon.png" alt="department: "> ${person.department} </p>
                 <p><a href="mailto:${person.email}">
                 <img src="mailicon.png"> Send mail to ${person.firstname}</a></p>`
+                //Legger HTML-koden for det opprettede ansattkortet til "showStaff" strengen, slik at den gradvis blir fylt med HTML-kode for hvert ansattkort som genereres i løkken.
                 showStaff += memberCard.outerHTML
-            }) //Kilde 1 (ChatGPT) og inspirasjon fra koding andre steder i oppgaven
+            }) //Kilde 1 (ChatGPT) og 4 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/map-og-filter)
 
+            //for å oppdatere HTML-elementet med innhold med "showStaff"
             document.getElementById("staffList").innerHTML = showStaff
         }
+        //kaller på funksjonene for å sortere ansattlisten og vise frem ansattkort
         sortStaffList()
         viewStaff()
 
-        //FOR Å LEGGE TIL NY ANSATT
+        //for å legge til ny ansatt
         //Knyttet informasjonen i HTML-koden mot handling som skal skje når man trykker på "Save staff member" i reg.skjema.
         document.getElementById("saveStaff").addEventListener("click", function() {
             let firstname = document.getElementById("firstname").value
@@ -157,7 +158,7 @@
 
             //sjekker at alle feltene er fylt inn for å få lov til å registere
             if(firstname && lastname && position && department && email) {
-                //for å opprette ny ansatt objekt
+                //laget variabel med verdier for å kunne opprette ny ansatt objekt
                 let newStaffMember = {
                     firstname: firstname,
                     lastname: lastname,
@@ -165,13 +166,13 @@
                     department: department,
                     email: email
                 }
-                //Gjør at ny ansatt legges til i listen over ansatte. 
+                //Gjør at ny ansatt legges til i array over ansatte. 
                 staffList.push(newStaffMember)
 
-
                 //for å lage ansattkort i ansattlisten for ny ansatt registrert. 
-                //Laget den på nytt, ettersom jeg allerede forstår hva som skjer, fremfor å finne ut hvordan jeg må kode om på en måte jeg ikke forstår for å få den til å snakke med den forrige til definert ansatt,
+                //Laget den på nytt, ettersom jeg allerede forstår hva som skjer, fremfor å finne ut hvordan jeg må kode om på en annen måte jeg ikke forstår for å få den til å snakke med den forrige til allerede definert ansatt,
                 //men endret her på innholdet i template literal-streng med å fjerne "person." i forkant, fordi her snakker den ikke direkte til angitt person som det gjøres i "map" ovenfor. 
+                //Hele denne koden er skrevet på bakgrunn av den tidligere angitte koden, derfor ikke oppgitt spesifikke kilder eller beskriver.
                 let memberCard = document.createElement("article")
                 memberCard.classList.add("membercard")
                 memberCard.innerHTML = 
@@ -179,9 +180,7 @@
                 <p class="metainfo"> <img src="posicon.png" alt="position: "> ${position} 
                 <img src="depicon.png" alt="department: "> ${department} </p>
                 <p><a href="mailto:${email}"><img src="mailicon.png"> Send mail to ${firstname}</a></p>`
-                //Kommentert ut koden for minstekravet nedenfor for å løse C-kravet med å sortere på etternavn, ønsket da å ha etternavnet først i templet-literal-strengen.
-                //memberCard.innerHTML = `<h3>${firstname}, ${lastname}</h3> <p class="metainfo"> <img src="posicon.png" alt="position: "> ${position} <img src="depicon.png" alt="department: "> ${department} </p><p><a href="mailto:${email}"><img src="mailicon.png"> Send mail to ${firstname}</a></p>`
-                document.getElementById("staffList").appendChild(memberCard)
+                document.getElementById("staffList").appendChild(memberCard) //Kilde 9 (https://developer.mozilla.org/en-US/docs/Web/API/Element/append)
                 
                 //lagt til for å tømme skjema etter det er brukt for registering av ny ansatt. 
                 document.getElementById('firstname').value = ''
@@ -196,102 +195,124 @@
             } else {
                 alert('Det er et eller flere tomme felt. Alle feltene må fylles inn for å kunne legge til den ansatte.')
             }  
-        }) //Kilde 1 (ChatGPT) + les beskrivelse i mappedokumentet
+        }) //Kilde 1 (ChatGPT)
 
         //Array of available positions
         const positionsMenu = ["Director", "Team leader", "Producer", "Engineer", "Designer"]
-
         //Array of available departments
         const departmentsMenu = ["Administration", "Human Resources", "Production", "Finances"]
+
 
          //Funksjon for å sortere stillinger og avdelinger fra A til Å i nedtrekksmenyene
          function sortMenuOptions(array, selectId) {
             const select = document.getElementById(selectId)
             //sorterer alfabetisk 
             array.sort()
+            //tømmer innholdet i select-elementet
             select.innerHTML = ""
+            //løkke som går gjennom hvert element i arrayen og oppretter en <option> for hver element
             array.forEach (item => {
                 const option = document.createElement("option")
+                //her settes teksten og verdien til option til verdien av elementet i arrayen
                 option.text = item
                 option.value = item
+                //option blir lagt til select-elementet
                 select.appendChild(option)
             })
-        }
+        }//Kilde 1 (ChatGPT)
+
+        //Kaller funksjonen for å få ut verdien fra array og HTML-element med id
          sortMenuOptions(positionsMenu, "positionMenu")
          sortMenuOptions(departmentsMenu, "departmentMenu")
-        //Kilde 1 (ChatGPT) + les beskrivelse i mappedokumentet
+        
 
 
-        //FUNKSJON FOR Å LEGGE TIL NYE AVDELINGER
+        //funksjonen som legger til de nye avdelingene
         function addDepartment() {
             let newDepartmentName = document.getElementById("newDepartment").value
+            //sjekker at det som er skrevet inn ikke bare er tomme mellomrom
             if (newDepartmentName.trim() !== "") { //Kilde 1 (ChatGPT) ellers er resten av koden skrevet med ispirasjon fra tidligere funksjoner i oppgaven
                 //legger den nye avdelingen til nedtrekksmenyen i skjemaet
                 departmentsMenu.push(newDepartmentName)
+                //kaller funksjonen for sortering på nytt
                 sortMenuOptions(departmentsMenu, "departmentMenu")
                 //Lagt til for å tømme feltet 
                 document.getElementById("newDepartment").value = ''
             }
         }
+        //Knytter informasjonen i HTML-koden mot handling som skal skje når man trykker på "Save Department" i reg.skjema.
         document.getElementById("saveDepartment").addEventListener("click", addDepartment)
 
-        //D-KRAV 
-        //(funksjonen er kommentert ut fordi den måtte endres litt for å gjøre C-kravet)
-        //FUNKSJON FOR Å LEGGE TIL NYE STILLINGER
+        //D-KRAV - funksjonen er kommentert ut fordi den måtte endres litt for å gjøre C-kravet
+        //funksjonen vil gjøre at man kan legge til nye stillinger
         //function addPosition() {
         //    let newPositionName = document.getElementById("newPosition").value
         //    if (newPositionName.trim() !== "") { //Kilde 1 (ChatGPT) ellers er resten av koden skrevet med ispirasjon fra tidligere funksjoner i oppgaven
-                //legger den nye stillinger til nedtrekksmenyen i skjemaet
+        //legger den nye stillinger til nedtrekksmenyen i skjemaet
         //      positionsMenu.push(newPositionName)
         //      sortMenuOptions(positionsMenu, "positionMenu")
-                //Lagt til for å tømme feltet 
+        //Lagt til for å tømme feltet 
         //      document.getElementById("newPosition").value = ''
         //    }
         //  }
+        //Knytter informasjonen i HTML-koden mot handling som skal skje når man trykker på "Save Department" i reg.skjema.
         //document.getElementById("savePosition").addEventListener("click", addPosition)
 
         //funksjon for å legge til nye stillinger og at de havner i filtermenyen
         function addPosition() {
+            //henter verdien fra et HTML-element med ID "newPosition"
             let newPositionName = document.getElementById("newPosition").value
+            //sjekker at det som er skrevet inn ikke bare er tomme mellomrom
             if (newPositionName.trim() !== "") {
-                //Sjekker om stillingen allerede finnes i filtermenyen
-                if (!positionsMenu.includes(newPositionName)) { //Kilde 1 (ChatGPT)
-                positionsMenu.push(newPositionName)
-                sortMenuOptions(positionsMenu, "positionMenu")
+                //sjekker om stillingen allerede finnes i filtermenyen
+                if (!positionsMenu.includes(newPositionName)) {
+                    //legger til nye stillinger
+                    positionsMenu.push(newPositionName)
+                    //funksjonen for å sortere kjøres på nytt
+                    sortMenuOptions(positionsMenu, "positionMenu")
 
-                //Legg til den nye stillingen i filtermenyen
-                const filterMenu = document.getElementById("positionFilter")
-                const li = document.createElement("li")
-                const button = document.createElement("button")
-                button.textContent = newPositionName
-                button.className = newPositionName
-                button.addEventListener("click", () => showStaffForPosition(newPositionName))
-                li.appendChild(button)
-                filterMenu.appendChild(li)
-            }
-            //Lagt til for å tømme feltet
+                    //Legg til den nye stillingen i filtermenyen
+                    const filterMenu = document.getElementById("positionFilter")
+                    //for å opprette et mytt liste-element
+                    const li = document.createElement("li")
+                    //oppretter knapp til stillingen i filtermeneyen
+                    const button = document.createElement("button")
+                    //Setter tekstverdi til knappen i filtermenyen
+                    button.textContent = newPositionName
+                    //gir knappen en klasse med samme navn som verdien av newPositionName
+                    button.className = newPositionName
+                    //lytter etter hendelsen for klikk på knappen. Når knappen klikkes, kalles funksjonen showStaffForPosition med navnet på den nye stillingen
+                    button.addEventListener("click", () => showStaffForPosition(newPositionName))
+                    //gjør at knappen legges til i liste-elementet
+                    li.appendChild(button)
+                    //gjør at listeelementet legges i filtermenyen
+                    filterMenu.appendChild(li)
+                }
+            //Lagt til for å tømme feltet etter at den nye stillingen er lagt til
             document.getElementById("newPosition").value = ''
             }
-        }
-            // Legger til event listener for "Save new position" knappen
-            document.getElementById("savePosition").addEventListener("click", addPosition)
+        }//Kilde 1 (ChatGPT)
+
+        //Legger til event listener for "Save new position" knappen
+        document.getElementById("savePosition").addEventListener("click", addPosition)
 
 
-        //funksjon for å vise alle ansattkortene
+        //funksjon for å viser alle ansattkortene
         function showAllStaff() {
             //finner alle ansattkort-elementene
             const membercards = document.querySelectorAll(".membercard")
+            //Løkke som går gjennom hvert ansattkort
             membercards.forEach(card => {
+                // Ansattkortet vises hvis det er likt med stillingen
                 card.style.display = "block"
             })
-        }
+        }//Kilde 1 (ChatPGT)
 
         //funksjon for å finne alle ansattkortene ut i fra stilling
         function showStaffForPosition(position) {
-           //finner alle ansattkort-elementene
+            //finner alle ansattkort-elementene
             const membercards = document.querySelectorAll('.membercard');
-
-            // Går gjennom hvert ansattkort
+            //Løkke som går gjennom hvert ansattkort
             membercards.forEach(card => {
                 // Sammenligner data-position attributtet med den valgte stillingen
                 if (card.getAttribute('data-position') === position) {
@@ -315,16 +336,16 @@
         //Fremvisningen blir oppdatert for hvilken stilling som er valgt
         const position = button.textContent
 
+            //hvis valget for å vise stillinger er all position kalles funksjonen for å vise alle membercards
             if (position === "All positions") {
-                //Kaller funksjonen for å vise alle membercards
                 showAllStaff()
             }
             else {
-                //kaller koden for å vise membercard baser på den valgte stillingen
+                //hvis ikke kaller koden for å vise membercard baser på den valgte stillingen
                 showStaffForPosition(position)
             }    
             })
-        })
+        }) //Kilde 1 (ChatPGT) og 10 (medstudent)
     </script>
 </body>
 </html>

@@ -52,6 +52,7 @@
 
         //variabel med startverdi
         let memoryIndex = - 1 
+        //Kilde 10 (medstudent)
 
         //Retting av 5 feil:
         function display(val) { //Feil 1: endret fra "displey"
@@ -88,7 +89,7 @@
                 //deaktiver previous knappen fordi det ikke er flere lagrede minner
                 document.getElementById("memory-browseback").disabled = true
             }
-        } //Kilde 1 (ChatGPT)
+        } //Kilde 1 (ChatGPT) og 10 (medstudent)
 
         //forsettelse for retting av 5 feil:
         function solve() {
@@ -116,14 +117,14 @@
         //funksjon som oppdater med antall lagrede mattestykker
         function updateMemoryCount() {
             document.getElementById("memory-bank").innerHTML = memory.length
-        } //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer ) + les beskrivelse i mappedokumentet
+        } //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer)
 
 
         //funksjon for å legge mattestykke til lagring via add-knappen
         function addMemory() {
             let currentCalculatin = document.getElementById("calculation").value
             memory.push(currentCalculatin)
-            //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer ) + les beskrivelse i mappedokumentet
+            //Kilde 1 (ChatGPT) og 3 (https://lms.webtricks.blog/kurs/innforing-i-programmering/arrayer-og-objekter/arrayer)
             
             //For å sjekke at det som lagres i memory skrives ut i konsollen.
             console.log(memory)
@@ -140,8 +141,8 @@
             
             //Kaller funksjoen clearScreen for at kalkulatoren skal starte ren
             clearScreen() 
-            //Kilde 1 (ChatGPT)
-        } 
+            
+        } //Kilde 1 (ChatGPT) og 10 (medstudent) 
     </script>
 </body>
 </html>

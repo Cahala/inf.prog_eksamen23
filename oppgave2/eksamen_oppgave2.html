@@ -39,8 +39,7 @@
             const x = Math.floor(Math.random() * canvas.width)
             const y = Math.floor(Math.random() * canvas.height)
             return { x, y };
-            //Kilde 1 (ChatGPT) og 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi)
-        }
+        }//Kilde 1 (ChatGPT) og 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi)
 
         //TODO: Function to add an element of parameter type 'square' or 'circle':
         function addElement(type) {
@@ -58,7 +57,7 @@
             }
             //sjekket om elementene ble skrevet ut i konsollen
             //console.log(elements)
-        }//Kilde 1 (ChatGPT) og medstudent (se beskrivelse i mappedokumentet)
+        }//Kilde 1 (ChatGPT) og 10 (medstudent)
 
 
         //TODO: EventListeners to track user input:
@@ -77,7 +76,7 @@
             if (event.key === "r" || event.key === "R") {
                 removeElement("circle" || "square")
             }
-        }) //Kilde 7 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/styre-bevegelse) og medstudent (se beskrivelse i mappedokumentet)
+        }) //Kilde 7 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/styre-bevegelse) og 10 (medstudent)
 
 
         //sjekker museklikk og utfører angitt handling ut i fra hvilken tast som er trykket
@@ -128,7 +127,7 @@
                     ctx.fill()
                     ctx.stroke() 
                 }
-            }) //Kilde 2 (tidligere koding, workshop), 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi) og medstudent (se beskrivelse i mappedokumentet)
+            }) //Kilde 2 (tidligere koding, workshop), 5 (https://lms.webtricks.blog/kurs/innforing-i-programmering/10-canvas-animasjon/randomisering-tilfeldig-utvalg-verdi) og 10 (medstudent)
 
             circleCount.innerHTML = elements.filter(element => element.type === 'circle').length;
             squareCount.innerHTML = elements.filter(element => element.type === 'square').length;
@@ -157,7 +156,7 @@
                 //Kaller funksjonen for å oppdatere tegning i canvas
                 renderDrawings()
             } 
-        }
+        }//Kilde 1 (ChatGPT)
     </script>
 </body>
 </html>
